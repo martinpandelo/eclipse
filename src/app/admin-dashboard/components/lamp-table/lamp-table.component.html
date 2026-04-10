@@ -1,0 +1,44 @@
+<div class="table-responsive mb-5 pb-5">
+  <table class="table table-striped align-middle">
+
+    <thead>
+      <tr>
+        <th scope="col" class="text-primary">
+            Lámpara
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (lamp of lamps; track lamp.id) {
+        <tr class="hover:bg-base-300">
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <img
+                [src]="lamp.image | pathImage: 'lamparas'"
+                [alt]="lamp.name"
+                class="imgLamp me-2" />
+              <div>
+                <a
+                  [routerLink]="['/admin/lamp', lamp.id]"
+                  class="fw-bold text-decoration-none text-dark"
+                  [class.text-primary]="false"
+                  >{{ lamp.name }}</a>
+                <div class="text-muted small"></div>
+              </div>
+            </div>
+          </td>
+          <th>
+            <a [routerLink]="['/admin/lamp', lamp.id]" class="btn btn-sm btn-success">Editar</a>
+          </th>
+          <th>
+            <button class="btn btn-sm btn-danger" (click)="onDeleteLamp(lamp.id)" >Eliminar</button>
+          </th>
+        </tr>
+      }
+    </tbody>
+
+  </table>
+</div>
+

@@ -1,0 +1,29 @@
+@if (relatedProductsResource.hasValue() && relatedProductsResource.value().products.length) {
+
+  <section class="py-5 news overflow-hidden">
+        <div class="container-fluid py-5 text-center">
+          <div class="row">
+            <div class="col-12 col-md-11 offset-md-1">
+              <h3
+                class="font-martian text-primary text-uppercase my-4 text-start"
+                data-aos="flip-up"
+              >
+                Mirá también
+              </h3>
+              <div
+                class="row row-cols-2 row-cols-md-6 my-3"
+              >
+                @for (prod of relatedProductsResource.value().products; track $index) {
+                  <div class="col mb-4">
+                    <div class="item">
+                      <product-card [product]="prod" />
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+}

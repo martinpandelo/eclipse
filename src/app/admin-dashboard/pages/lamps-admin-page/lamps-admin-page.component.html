@@ -1,0 +1,17 @@
+<div class="d-flex align-items-center gap-2 mb-3">
+  <h1 class="h2 fw-bold mb-0">Listado de lámparas</h1>
+  <div class="flex-grow-1"></div>
+  <a routerLink="/admin/lamp/0" class="btn btn-success btn-lg">
+    Nueva lámpara
+  </a>
+</div>
+
+<hr class="my-4" />
+
+<!-- Listado -->
+<lamp-table
+  [lamps]="lampResource.value()?.lamps ?? []"
+  (delete)="onDeleteLamp($event)"
+/>
+
+

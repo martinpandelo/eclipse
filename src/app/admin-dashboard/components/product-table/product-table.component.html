@@ -1,0 +1,90 @@
+<!-- Búsqueda -->
+<div class="mb-3">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Buscar..."
+    (input)="onSearch($event)" />
+</div>
+
+<!-- Tabla -->
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th scope="col" (click)="setSort('title')" role="button" class="text-primary">
+          Título
+          <span class="ps-2" *ngIf="sortBy === 'title'">
+            {{ sortDirection === 'asc' ? '▼' : '▲' }}
+          </span>
+        </th>
+        <th scope="col" (click)="setSort('description')" role="button" class="text-primary">
+          Descripción
+          <span class="ps-2" *ngIf="sortBy === 'description'">
+            {{ sortDirection === 'asc' ? '▼' : '▲' }}
+          </span>
+        </th>
+        <th scope="col" (click)="setSort('categories')" role="button" class="text-primary">
+          Categoría
+          <span class="ps-2" *ngIf="sortBy === 'categories'">
+            {{ sortDirection === 'asc' ? '▼' : '▲' }}
+          </span>
+        </th>
+        <th scope="col" (click)="setSort('novelty')" role="button" class="text-primary">
+          Novedad
+          <span class="ps-2" *ngIf="sortBy === 'novelty'">
+            {{ sortDirection === 'asc' ? '▼' : '▲' }}
+          </span>
+        </th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (product of products; track product.id) {
+        <tr>
+          <!-- Columna con imagen + título -->
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <img
+                [src]="product.images | pathImage"
+                [alt]="product.title"
+                class="rounded me-2"
+                style="width: 48px; height: 48px; object-fit: cover;" />
+              <div>
+                <a
+                  [routerLink]="['/admin/product', product.id]"
+                  class="fw-bold text-decoration-none text-dark"
+                  [class.text-primary]="false"
+                  >{{ product.title }}</a>
+                <div class="text-muted small"></div>
+              </div>
+            </div>
+          </td>
+          <td>{{ product.description }}</td>
+          <td>{{ getCategoryNames(product) }}</td>
+
+          @if (product.novelty) {
+            <td><i class="bi bi-check2-circle text-success fs-3"></i></td>
+          }@else {
+            <td><i class="bi bi-x-circle text-danger fs-2"></i></td>
+          }
+
+          <!-- Acciones -->
+          <td>
+            <a [routerLink]="['/admin/product', product.id]" class="btn btn-sm btn-success">
+              Editar
+            </a>
+          </td>
+          <td>
+            <button
+              class="btn btn-sm btn-danger"
+              (click)="onDeleteProduct(product.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

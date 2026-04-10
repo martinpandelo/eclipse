@@ -1,0 +1,11 @@
+<div class="item text-center shadow rounded">
+    <a [routerLink]="['/ar-servicios-industriales/producto', product().slug ]" class="p-3 d-block text-decoration-none">
+        <img
+          [src]="product().images | pathImage "
+          [alt]="product().title"
+          class="img-fluid mb-3"
+        />
+        <h5 class="fw-bold">{{ product().title }}</h5>
+        <p class="text-muted mb-0 lh-sm"><small>{{ product().description }}</small></p>
+    </a>
+</div>

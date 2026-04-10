@@ -1,0 +1,42 @@
+<div class="table-responsive mb-5 pb-5">
+  <table class="table table-striped align-middle">
+
+    <thead>
+      <tr>
+        <th scope="col" class="text-primary">
+            Nombre
+        </th>
+        <th scope="col" class="text-primary">
+            Color
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (color of colors; track color.id) {
+        <tr class="hover:bg-base-300">
+          <td>
+            {{ color.name }}
+          </td>
+          <td>
+            <div class="d-flex">
+              <a class="terminacion tooltip-custom" [style.backgroundColor]="color.hexa">
+                <span class="tooltip-text">{{color.hexa}}</span>
+              </a>
+              {{ color.hexa }}
+            </div>
+          </td>
+          <th>
+            <a [routerLink]="['/admin/color', color.id]" class="btn btn-sm btn-success">Editar</a>
+          </th>
+          <th>
+            <button class="btn btn-sm btn-danger" (click)="onDeleteColor(color.id)" >Eliminar</button>
+          </th>
+        </tr>
+      }
+    </tbody>
+
+  </table>
+</div>
+

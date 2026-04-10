@@ -1,0 +1,38 @@
+
+    <section class="py-5 news overflow-hidden" data-aos="fade-in">
+      <div class="container py-3 text-center position-relative">
+        <div class="row">
+          <h3
+            class="font-martian text-primary text-uppercase my-4 mx-auto text-center"
+            data-aos="flip-up"
+          >
+            Novedades
+          </h3>
+
+          <swiper-container init="false" #swiperContainer class="slider">
+            @for (prod of productResource.value()?.products; track $index) {
+              <swiper-slide>
+                  <product-card [product]="prod" />
+              </swiper-slide>
+            }
+          </swiper-container>
+
+          <button class="swiper-prev btn btn-light btn-slide position-absolute top-50 start-0 translate-middle-y z-1">
+            <i class="bi bi-arrow-left-short fs-2"></i>
+          </button>
+
+          <button class="swiper-next btn btn-light btn-slide position-absolute top-50 end-0 translate-middle-y z-1">
+            <i class="bi bi-arrow-right-short fs-2"></i>
+          </button>
+
+          <a
+            type="button"
+            class="btn btn-custom bg-primary my-5 mx-auto w-auto text-white rounded-pill font-martian"
+            [routerLink]="['/ar-servicios-industriales/productos']"
+          >
+            Ver todos los productos
+          </a>
+        </div>
+      </div>
+    </section>
+

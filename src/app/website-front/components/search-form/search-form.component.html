@@ -1,0 +1,22 @@
+<div
+  class="row align-items-center justify-content-center text-center"
+  data-aos="fade"
+  data-aos-duration="3000"
+>
+  <div class="col gap-4">
+      <form
+        class="search-box my-5"
+        onsubmit="return false;"
+        (ngSubmit)="onSearchEnter()" #searchForm="ngForm"
+      >
+        <input
+          type="search"
+          name="search"
+          placeholder="Buscar por código, nombre o palabra clave"
+          [ngModel]="searchInput()"
+          (ngModelChange)="searchInput.set($event)"
+        />
+        <i class="bi bi-search"></i>
+      </form>
+  </div>
+</div>

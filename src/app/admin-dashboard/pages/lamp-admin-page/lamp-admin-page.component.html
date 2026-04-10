@@ -1,0 +1,9 @@
+@if ( lampResource.isLoading() ) {
+  <div class="flex justify-center items-center h-screen">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+}
+
+@if ( lampResource.hasValue() ) {
+  <admin-lamp-details [lamp]="lampResource.value()" />
+}

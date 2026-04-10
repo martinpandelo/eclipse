@@ -1,0 +1,27 @@
+<div class="d-flex align-items-center gap-2 mb-3">
+  <h1 class="h2 fw-bold mb-0">Listado de categorias</h1>
+  <div class="flex-grow-1"></div>
+  <a routerLink="/admin/category/0" class="btn btn-success btn-lg">
+    Nueva categoría
+  </a>
+</div>
+
+<hr class="my-4" />
+
+<div class="row">
+  <div class="col-7">
+    <!-- Listado -->
+    <category-table
+      [categories]="categoryResource.value()?.categories ?? []"
+      (delete)="onDeleteCategory($event)"
+    />
+  </div>
+  <div class="col-5">
+    <categories-order
+      [categoriesInput]="categoryResource.value()?.categories ?? []"
+    />
+  </div>
+</div>
+
+
+

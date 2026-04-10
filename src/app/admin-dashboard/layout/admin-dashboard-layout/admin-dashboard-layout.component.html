@@ -1,0 +1,70 @@
+<main class="d-flex flex-nowrap">
+  <!-- SIDEBAR -->
+  <div
+    class="d-flex flex-column p-3 text-bg-dark position-fixed vh-100"
+    style="width: 280px"
+  >
+
+    <a
+      routerLink="/"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-boxes" viewBox="0 0 16 16">
+        <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
+      </svg>
+      <span class="fs-4 ps-3">Admin Panel</span>
+    </a>
+
+    <hr />
+
+    <div id="profile" class="px-4 py-4">
+      <div class="d-inline-flex align-items-center gap-2">
+        <!-- Icono de usuario -->
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+              class="rounded-circle bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          </svg>
+        </span>
+
+        <!-- Nombre de usuario -->
+        <span class="fs-6 fw-light lh-1 px-2">
+          {{ user()?.fullName }}
+        </span>
+
+        <!-- Botón de logout -->
+        <button (click)="logout()" class="btn btn-danger btn-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+              class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+            <path fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="list-group flex-column mb-auto" data-bs-theme="dark">
+      <a routerLink="/admin/products" routerLinkActive="active" class="list-group-item list-group-item-action">
+        Productos
+      </a>
+      <a routerLink="/admin/categories" routerLinkActive="active" class="list-group-item list-group-item-action">
+        Categorías
+      </a>
+      <a routerLink="/admin/colors" routerLinkActive="active" class="list-group-item list-group-item-action">
+        Colores
+      </a>
+      <a routerLink="/admin/lamps" routerLinkActive="active" class="list-group-item list-group-item-action">
+        Lámparas
+      </a>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-grow-1 px-3 my-3 vh-100 overflow-auto" style="margin-left: 280px;">
+    <router-outlet />
+  </div>
+</main>

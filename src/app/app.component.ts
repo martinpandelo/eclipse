@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,24 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit {
+
+  router = inject(Router)
+
+  ngOnInit() {
+    AOS.init({
+      duration: 1000,
+      once: false,
+      offset: 50
+    });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => {
+          AOS.refresh();
+        }, 50);
+      }
+    });
+  }
+
 }

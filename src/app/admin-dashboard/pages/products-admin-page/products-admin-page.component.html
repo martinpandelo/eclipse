@@ -1,0 +1,61 @@
+<h1 class="h2 fw-bold mb-3">Listado de productos</h1>
+<h3 class="h6 mb-3">
+  Total de productos
+  <span class="badge bg-primary">
+    {{ productResource.value()?.count }}
+  </span>
+</h3>
+
+<hr class="my-4" />
+
+<!-- Fila de controles -->
+<div class="d-flex align-items-center gap-2 mb-3" style="height: 60px;">
+  <!-- Paginación -->
+  <app-pagination
+    [pages]="productResource.value()?.pages ?? 0"
+    [currentPage]="paginationService.currentPage()"
+  ></app-pagination>
+
+  <!-- Selector perPage -->
+  <select
+    #selectPerPage
+    class="form-select w-auto"
+    (change)="productsPerPage.set(+selectPerPage.value)"
+  >
+    @for (option of [10, 20, 50, 100]; track option) {
+      <option [value]="option" [selected]="option === productsPerPage()">
+        {{ option }}
+      </option>
+    }
+  </select>
+
+  <div class="flex-grow-1"></div>
+
+  <a routerLink="/admin/orden-novedades" class="btn btn-warning btn-lg">
+    Ordenar novedades
+  </a>
+
+  <a routerLink="/admin/product/0" class="btn btn-success btn-lg">
+    Nuevo producto
+  </a>
+</div>
+
+<!-- Listado -->
+<product-table
+  [products]="productResource.value()?.products ?? []"
+  [sortBy]="sortBy()"
+  [sortDirection]="sortDirection()"
+  (search)="searchQuery.set($event)"
+  (sort)="onSort($event)"
+  (delete)="onDeleteProduct($event)"
+></product-table>
+
+<!-- Fila de controles -->
+<div class="d-flex align-items-center gap-2 mb-3" style="height: 60px;">
+  <!-- Paginación -->
+  <app-pagination
+    [pages]="productResource.value()?.pages ?? 0"
+    [currentPage]="paginationService.currentPage()"
+  ></app-pagination>
+
+</div>

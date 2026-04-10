@@ -1,0 +1,20 @@
+@if (isSiteEclipse()) {
+  <front-header-eclipse />
+} @else if (isHomePage()) {
+  <front-header-home />
+} @else {
+  <front-header-basic />
+}
+
+<main>
+    <router-outlet />
+</main>
+
+@if (isSiteEclipse()) {
+  <front-footer-eclipse />
+} @else {
+  <front-footer />
+}
+
+
+

@@ -1,0 +1,31 @@
+<div class="table-responsive mb-5 pb-5">
+  <table class="table table-striped align-middle">
+
+    <thead>
+      <tr>
+        <th scope="col" class="text-primary">
+            Nombre
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (category of categories; track category.id) {
+        <tr class="hover:bg-base-300">
+          <td>
+            {{ category.title }}
+          </td>
+          <th>
+            <a [routerLink]="['/admin/category', category.id]" class="btn btn-sm btn-success">Editar</a>
+          </th>
+          <th>
+            <button class="btn btn-sm btn-danger" (click)="onDeleteCategory(category.id)" >Eliminar</button>
+          </th>
+        </tr>
+      }
+    </tbody>
+
+  </table>
+</div>
+

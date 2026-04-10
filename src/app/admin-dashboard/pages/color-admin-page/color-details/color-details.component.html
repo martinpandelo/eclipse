@@ -1,0 +1,81 @@
+<form [formGroup]="colorForm" (ngSubmit)="onSubmit()">
+
+  <!-- Barra sticky -->
+  <div
+    class="position-sticky top-0 bg-white border-bottom px-4 px-lg-5 py-3"
+    style="z-index: 1040; backdrop-filter: blur(4px);"
+  >
+    <div class="d-flex align-items-center gap-3">
+      <h1 class="flex-grow-1 h3 fw-bold text-truncate mb-0">
+        @if (color().name) {
+          {{ color().name }}
+        } @else {
+          Nuevo color
+        }
+      </h1>
+
+      <button class="btn btn-success btn-lg" type="submit" [disabled]="isLoading()">
+        @if (isLoading()) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Guardando...
+        } @else {
+          Guardar
+        }
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="row g-4 px-4 px-lg-5 pt-4">
+
+    <!-- Datos generales -->
+    <div class="col-12 col-md-8">
+
+      <div class="mb-3">
+        <label for="name" class="form-label fw-semibold">Nombre</label>
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          placeholder="Nombre"
+          formControlName="name"
+          [class.is-invalid]="formUtils.isValidField(colorForm, 'name')"
+        />
+        <form-error-label [control]="colorForm.get('name')!" fieldName="name" />
+      </div>
+
+      <div class="mb-3">
+        <label for="hexa" class="form-label fw-semibold">Código hexadecimal</label>
+        <input
+          id="hexa"
+          type="text"
+          placeholder="#XXXXXX"
+          class="form-control"
+          formControlName="hexa"
+          [class.is-invalid]="formUtils.isValidField(colorForm, 'hexa')"
+        />
+        <form-error-label [control]="colorForm.get('hexa')!" fieldName="hexa" />
+      </div>
+
+    </div>
+
+  </div>
+</form>
+
+<!-- Toast de éxito -->
+@if (wasSaved()) {
+  <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+    <div class="toast align-items-center text-bg-success border-0 show">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ successMessage() }}
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-white me-2 m-auto"
+          (click)="wasSaved.set(false)"
+        ></button>
+      </div>
+    </div>
+  </div>
+}

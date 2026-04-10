@@ -1,0 +1,57 @@
+<div class="d-flex flex-column align-items-center gap-4 pt-5">
+
+  <!-- Header con título y botón -->
+  <div class="d-flex align-items-center gap-2 w-100" style="max-width: 32rem;">
+    <h1 class="h4 fw-bold mb-0">Ordenar novedades</h1>
+    <div class="flex-grow-1"></div>
+    <button class="btn btn-success" (click)="saveOrder()">Guardar Orden</button>
+  </div>
+
+  <!-- Lista draggable -->
+  <div
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    class="w-100"
+    style="max-width: 32rem;"
+  >
+    @for (prod of products(); track prod.id) {
+      <div
+        class="p-2 mb-2 border rounded bg-light d-flex align-items-center justify-content-between cursor-move"
+        cdkDrag
+      >
+        <span>
+          <div class="d-flex align-items-center gap-3">
+              <img
+                [src]="prod.images | pathImage"
+                [alt]="prod.title"
+                class="rounded me-2"
+                style="width: 60px; height: 60px; object-fit: cover;"
+              />
+              <div class="text-muted">{{ prod.title }}</div>
+          </div>
+        </span>
+        <span class="text-muted">#{{ prod.order_novelty }}</span>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Toast Bootstrap -->
+@if (wasSaved()) {
+  <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+    <div class="toast align-items-center text-bg-success border-0 show">
+      <div class="d-flex">
+        <div class="toast-body">
+          Orden guardado correctamente
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-white me-2 m-auto"
+          (click)="wasSaved.set(false)"
+        ></button>
+      </div>
+    </div>
+  </div>
+}
+
+

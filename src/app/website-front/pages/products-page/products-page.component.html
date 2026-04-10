@@ -1,0 +1,150 @@
+<section class="overflow-hidden">
+      <div class="container-fluid bg-title">
+        <div class="row py-3 py-xl-5">
+            <div class="breadcrumb ps-2 ps-lg-5 m-0 align-items-stretch">
+              <h3
+                class="font-martian text-primary text-uppercase mb-0"
+                data-aos="flip-up"
+                routerLink="/ar-servicios-industriales/productos"
+                role="button"
+              >
+                PRODUCTOS
+              </h3>
+              <h3
+                class="font-martian text-primary text-uppercase mx-2"
+                data-aos="flip-up"
+              >
+                /
+              </h3>
+              <span class="my-auto">
+              @if (searchQuery()) {
+                RESULTADOS DE BÚSQUEDA PARA: <strong class="ms-1">"{{ searchQuery() | uppercase }}"</strong>
+              } @else {
+                {{ categoriaNombre()  || 'Todos los productos' | uppercase }}
+              }
+              </span>
+            </div>
+          </div>
+      </div>
+      <div class="container-xxl pt-3">
+
+            <nav class="navbar navbar-expand-lg bg-transparent mx-auto w-auto">
+              <button
+                class="navbar-toggler nav-link px-4 py-3 text-primary"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#navbarCats"
+                aria-controls="navbarCats"
+              >
+                <i class="bi bi-filter-left"></i>
+                Categorías
+              </button>
+
+              <div
+                class="offcanvas offcanvas-start"
+                data-bs-scroll="false"
+                tabindex="-1"
+                aria-labelledby="navbarCatsLabel"
+                id="navbarCats"
+              >
+
+                <div class="offcanvas-header">
+                  <button
+                    type="button"
+                    class="btn d-lg-none m-4 ms-auto"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Cerrar"
+                  ><i class="bi bi-x-lg fs-3"></i></button>
+                </div>
+
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav nav nav-pills flex-wrap justify-content-center gap-2 gap-lg-3 py-3 px-2 bg-transparent font-martian">
+                    @if (categoryResource.isLoading()) {
+                      <li class="nav-item">Cargando...</li>
+                    } @else {
+                      <li class="nav-item">
+                        <a
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                        data-bs-dismiss="offcanvas"
+                        class="nav-link px-4 py-3"
+                        [class.active]="categoria() === 'novedades'"
+                        [routerLink]="['/ar-servicios-industriales/productos', 'novedades']"
+                        ><i class="bi bi-bookmark-star-fill"></i> Novedades
+                        </a>
+                      </li>
+                      @for (cat of categoryResource.value()?.categories; track cat.id) {
+                        <li class="nav-item">
+                          <a
+                            data-aos="fade-up"
+                            data-aos-delay="300"
+                            data-bs-dismiss="offcanvas"
+                            class="nav-link px-4 py-3"
+                            [class.active]="categoria() === cat.slug"
+                            [routerLink]="['/ar-servicios-industriales/productos', cat.slug]"
+                            >{{ cat.title }}
+                          </a>
+                        </li>
+                      }
+                    }
+                  </ul>
+                </div>
+
+              </div>
+            </nav>
+
+      </div>
+    </section>
+
+    <section class="py-5 overflow-hidden">
+      <div class="container py-3 text-center">
+        <div class="row">
+
+            <!-- LISTA / LOADING -->
+            @if (productResource.isLoading()) {
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border text-primary my-5" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            } @else {
+
+              <!-- PRODUCTOS -->
+              @if (productResource.value()?.products!.length > 0) {
+                  @for (prod of productResource.value()?.products; track $index) {
+                    <div class="col-6 col-md-4 col-lg-3 pb-4">
+                      <product-card [product]="prod" />
+                    </div>
+                  }
+              } @else {
+                <div class="d-flex justify-content-center align-items-center">
+                  <i class="bi bi-emoji-frown-fill text-primary fs-2 pe-2"></i>
+                  <p class="m-0">
+                    No encontramos productos para estos filtros
+                  </p>
+                </div>
+              }
+
+            }
+
+            <!-- PAGINADO INFERIOR -->
+            @if ((productResource.value()?.pages ?? 0) > 1) {
+              <div class="my-5">
+                <app-pagination
+                  [pages]="productResource.value()?.pages ?? 0"
+                  [currentPage]="paginationService.currentPage()"
+                />
+              </div>
+            }
+
+        </div>
+
+          <!-- <button
+            type="button"
+            class="btn bg-primary my-5 mx-auto w-auto text-white rounded-pill font-martian"
+          >
+            +
+          </button> -->
+
+      </div>
+    </section>

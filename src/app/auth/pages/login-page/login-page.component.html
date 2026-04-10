@@ -1,0 +1,53 @@
+<main class="form-signin w-100 m-auto text-center">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            [class.is-invalid]="formUtils.isValidField(loginForm, 'email')"
+            id="floatingInput"
+            placeholder="name@example.com"
+            formControlName="email"
+          />
+          <label for="floatingInput">Email</label>
+          @if (formUtils.isValidField(loginForm, 'email')) {
+            <div class="invalid-feedback mb-3">
+              {{ formUtils.getFieldError(loginForm, 'email') }}
+            </div>
+          }
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            [class.is-invalid]="formUtils.isValidField(loginForm, 'password')"
+            id="floatingPassword"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <label for="floatingPassword">Password</label>
+          @if (formUtils.isValidField(loginForm, 'password')) {
+            <div class="invalid-feedback mb-3">
+              {{ formUtils.getFieldError(loginForm, 'password') }}
+            </div>
+          }
+        </div>
+
+        <button class="btn btn-secondary w-100 py-2 mt-3" type="submit">
+          Ingresar
+        </button>
+
+
+        @if ( hasError() ) {
+          <div class="alert alert-danger mt-3" role="alert">
+            Revise la información ingresada!
+          </div>
+        }
+
+      </form>
+</main>
+
+
+

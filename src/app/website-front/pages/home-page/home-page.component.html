@@ -1,0 +1,77 @@
+
+    <section class="py-0 py-lg-5 my-0 overflow-hidden">
+      <div class="container">
+
+        <div class="row align-items-center justify-content-center text-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <search-form />
+          </div>
+        </div>
+
+            <nav class="navbar navbar-expand-lg bg-transparent mx-auto w-auto">
+              <button
+                class="navbar-toggler nav-link px-4 py-3 text-primary"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#navbarCats"
+                aria-controls="navbarCats"
+              >
+                <i class="bi bi-filter-left"></i>
+                Categorías
+              </button>
+
+              <div
+                class="offcanvas offcanvas-start"
+                data-bs-scroll="false"
+                tabindex="-1"
+                aria-labelledby="navbarCatsLabel"
+                id="navbarCats"
+              >
+
+                <div class="offcanvas-header">
+                  <button
+                    type="button"
+                    class="btn d-lg-none m-4 ms-auto"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Cerrar"
+                  ><i class="bi bi-x-lg fs-3"></i></button>
+                </div>
+
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav nav nav-pills flex-wrap justify-content-center gap-2 gap-lg-3 py-3 px-2 bg-transparent font-martian">
+                    @if (categoryResource.isLoading()) {
+                      <li class="nav-item">Cargando...</li>
+                    } @else {
+                      <li class="nav-item">
+                        <a
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                        data-bs-dismiss="offcanvas"
+                        class="nav-link px-4 py-3"
+                        [routerLink]="['/ar-servicios-industriales/productos', 'novedades']"
+                        ><i class="bi bi-bookmark-star-fill"></i> Novedades
+                        </a>
+                      </li>
+                      @for (cat of categoryResource.value()?.categories; track cat.id) {
+                        <li class="nav-item">
+                          <a
+                            data-aos="fade-up"
+                            data-aos-delay="300"
+                            data-bs-dismiss="offcanvas"
+                            class="nav-link px-4 py-3"
+                            [routerLink]="['/ar-servicios-industriales/productos', cat.slug]"
+                            >{{ cat.title }}
+                          </a>
+                        </li>
+                      }
+                    }
+                  </ul>
+                </div>
+
+              </div>
+            </nav>
+
+      </div>
+    </section>
+
+    <home-slide-news />
